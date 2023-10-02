@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block library_tab %}Leaving so soon?{% endblock %}
+{% block active_tab_title %}Leaving so soon?{% endblock %}
+
+{% block page_title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+      <div class="col-md-8 mt-4 offset-md-2 py-3 rounded shadow">
+        <h2>Sign Out</h2>
+        <p>Are you sure you want to sign out?</p>
+
+        <form method="post" action="{% url 'account_logout' %}">
+          {% csrf_token %}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+          {% endif %}
+          <button class="btn btn-primary text-light" type="submit">Log Out</button>
+        </form>
+
+
+{% endblock content %}
