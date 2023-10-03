@@ -36,7 +36,8 @@ class Book(models.Model):
         ('paperback', 'Paperback'),
     )
     book_type = models.CharField(max_length=20, choices=BOOK_TYPES)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name="book_owner", on_delete=models.CASCADE)
     read = models.BooleanField(default=False)
     review = models.TextField(blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True, choices=[

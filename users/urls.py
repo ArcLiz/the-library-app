@@ -1,8 +1,9 @@
 # users urls
 
 from django.urls import path
-from .views import MyProfile
+from .views import Profiles, EditProfile
 
 urlpatterns = [
-    path('', MyProfile, name='my_profile')
+    path('<slug:pk>', Profiles.as_view(), name='profile'),
+    path('edit/<slug:pk>/', EditProfile.as_view(), name='edit_profile')
 ]

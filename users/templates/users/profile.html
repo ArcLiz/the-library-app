@@ -1,6 +1,53 @@
 {% extends "base.html" %}
-{% block active_tab_title %}Profile{% endblock%}
-{% block library_tab %}Profile{% endblock%}
+{% load static %}
+
 {% block content %}
-This is the Profile Page
-{% endblock content %}
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-10 offset-1 bg-light shadow-lg mt-3 d-flex p-4">
+                <div>
+                    <p class="small m-0 text-muted"><em>Welcome to the profile of...</em></p>
+                    <hr class="mt-0">
+                    <h1 class="mt-0 mx-3">{{ profile.name }}</h1>
+                    <hr>
+                    <p class="ms-3"><strong>Joined On: </strong>{{ profile.user.date_joined|date:'M d,  Y' }}</p>
+                    <p class="ms-3"><strong>Registered Books: </strong>{{ profile.user.book_owner.count }}</p>
+                    <p class="ms-3"><strong>Bio: </strong>{{ profile.bio }}</p>
+                    {% if request.user == profile.user %}
+                    <button class="ms-3 btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#editProfile">Edit</button>
+                    {% endif %}
+                </div>
+                    
+                <div class="ms-auto ps-6">
+                    {% if profile.image.url %}
+                    <img src="{{ profile.image.url }}" alt="{{ profile.name }}'s profile image" class="rounded-circle">
+                    {% else %}
+                    <img src="https://placehold.co/300x300" alt="Image not found icon" class="img-thumbnail">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="modal" id="editProfile" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Profile</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{% url 'edit_profile' request.user.id %}" class="mb-2 p-2 form" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.media }}
+                                {{ form|crispy }}
+                                <div class="text-end">
+
+                                    <button type="sumbit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
