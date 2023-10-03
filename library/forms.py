@@ -25,7 +25,7 @@ class BookForm(forms.ModelForm):
         }
 
 
-class QuickAdd(forms.ModelForm):
+class QuickForm(forms.ModelForm):
     """ Form to add necessary book information only """
 
     class Meta:

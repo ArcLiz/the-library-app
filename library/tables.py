@@ -3,6 +3,7 @@ from .models import Book
 
 
 class BookTable(tables.Table):
+    """ The library view """
     title = tables.LinkColumn('book_detail', args=[tables.A('pk')])
     author = tables.Column()
     genres = tables.Column()
