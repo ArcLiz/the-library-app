@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django_tables2 import SingleTableView
+
+from django.db.models import Q
+
 from .models import Book
 from .forms import BookForm, QuickForm
 from .tables import BookTable
@@ -59,6 +62,22 @@ class MyLibrary(SingleTableView):
     model = Book
     table_class = BookTable
     template_name = 'library/library.html'
+    context_object_name = 'books'
+
+    def get_queryset(self):
+        user = self.request.user
+        query = self.request.GET.get('q')  # Hämta söktermen från användaren
+
+        # Begränsa sökningen till böcker som tillhör användaren
+        queryset = Book.objects.filter(user=user)
+
+        # Om det finns en sökterm, använd Q-objekt för att filtrera böckerna
+        if query:
+            queryset = queryset.filter(
+                Q(title__icontains=query) | Q(author__icontains=query)
+            )
+
+        return queryset
 
 
 def book_details(request, pk):

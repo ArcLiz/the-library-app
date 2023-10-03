@@ -9,6 +9,7 @@ class BookTable(tables.Table):
     genres = tables.Column()
     book_type = tables.Column()
     comments = tables.Column()
+    read = tables.BooleanColumn()
     edit = tables.TemplateColumn(
         '<a href="#"><i class="fa-solid fa-pen-to-square"></i></a>')
     delete = tables.TemplateColumn(

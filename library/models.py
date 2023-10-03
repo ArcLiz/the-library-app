@@ -10,6 +10,9 @@ class Genre(models.Model):
     """ A model to create the list of genres """
     name = models.CharField(max_length=100)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
 
