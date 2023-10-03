@@ -8,12 +8,14 @@ class BookForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ['title', 'author', 'genres', 'isbn',
+        fields = ['title', 'author', 'series', 'num_in_series', 'genres', 'isbn',
                   'cover', 'book_type', 'read', 'review', 'rating', 'comments']
 
         labels = {
             'title': 'Book Title',
             'author': 'Author',
+            'series': 'Book Series',
+            'num_in_series': 'Book # in Series',
             'genres': 'Genres',
             'isbn': 'ISBN(13)',
             'cover': 'Cover Image',

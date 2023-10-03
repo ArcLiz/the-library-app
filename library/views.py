@@ -5,8 +5,9 @@ from django_tables2 import SingleTableView
 from django.db.models import Q
 
 from .models import Book
-from .forms import BookForm, QuickForm
 from .tables import BookTable
+from .forms import BookForm, QuickForm
+
 
 # Create your views here.
 
@@ -66,18 +67,22 @@ class MyLibrary(SingleTableView):
 
     def get_queryset(self):
         user = self.request.user
-        query = self.request.GET.get('q')  # Hämta söktermen från användaren
+        query = self.request.GET.get('q')
 
-        # Begränsa sökningen till böcker som tillhör användaren
         queryset = Book.objects.filter(user=user)
 
-        # Om det finns en sökterm, använd Q-objekt för att filtrera böckerna
         if query:
             queryset = queryset.filter(
-                Q(title__icontains=query) | Q(author__icontains=query)
+                Q(title__icontains=query) | Q(
+                    author__icontains=query) | Q(series__icontains=query)
             )
 
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['unread'] = context['books'].filter(read=False).count()
+        return context
 
 
 def book_details(request, pk):

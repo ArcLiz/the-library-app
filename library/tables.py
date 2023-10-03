@@ -4,16 +4,17 @@ from .models import Book
 
 class BookTable(tables.Table):
     """ The library view """
-    title = tables.LinkColumn('book_detail', args=[tables.A('pk')])
-    author = tables.Column()
-    genres = tables.Column()
-    book_type = tables.Column()
-    comments = tables.Column()
-    read = tables.BooleanColumn()
+    title = tables.LinkColumn(
+        'book_detail', args=[tables.A('pk')], verbose_name="book title")
+    author = tables.Column(verbose_name="author")
+    genres = tables.Column(verbose_name="genres")
+    book_type = tables.Column(verbose_name="book type")
+    comments = tables.Column(verbose_name="comments")
+    read = tables.BooleanColumn(verbose_name="read")
     edit = tables.TemplateColumn(
-        '<a href="#"><i class="fa-solid fa-pen-to-square"></i></a>')
+        '<a href="#"><i class="fa-solid fa-pen-to-square"></i></a>', verbose_name="edit")
     delete = tables.TemplateColumn(
-        '<a href="#"><i class="fa-solid fa-trash"></i></a>')
+        '<a href="#"><i class="fa-solid fa-trash"></i></a>', verbose_name="delete")
 
     class Meta:
         model = Book

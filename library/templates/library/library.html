@@ -7,19 +7,20 @@
     <div class="row">
     <div class="col-md-8 mt-3">
         <h2 class="my-2">My Library</h2>
-
-        <p class="my-0">Welcome to your library overview.</p>
+        <p>Welcome to your library overview.</p>
             {% if request.GET.q %}
             <p>Your search of "{{ request.GET.q }}" yielded {{ books.count }} result(s).</p> 
             {% else %}
-            <p>You currently have {{ books.count }} book(s) in your collection.</p>
+            <p>You currently have {{ books.count }} book(s) in your collection.<br>
+            {{ unread }} of those are listed as unread.</p>
+            
             {% endif %}
         
         <a href="{% url 'add_book' %}" class="btn btn-primary mb-0 text-light">Add Book</a>
         <a href="{% url 'quick_add' %}" class="btn btn-primary mb-0 text-light">Quick Add</a>
     </div>
     <div class="col-md-4 mt-auto">
-        <p class="small text-muted mb-0">&nbsp;Search in Title and Author</p>
+        <p class="small text-muted mb-0">&nbsp;Search titles, authors or series</p>
         <form class="d-flex" role="search" method="GET" action="{% url 'my_library' %}">
             <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
             {% if request.GET.q %}        
@@ -54,7 +55,7 @@
                 <td>{{ book.genres.all|join:", " }}</td>
                 <td>{{ book.book_type }}</td>
                 <td>{% if book.read %} Yes {% else %} No {% endif %} </td>
-                <td>{{ book.comments }}</td>
+                <td>{% if book.comments %}{{ book.comments }}{% endif %}</td>
                 <td><a href="{% url 'edit_book' pk=book.pk %}"><i class="fa-solid fa-pen-to-square text-warning"></i></a></td>
                 <td><a href="{% url 'delete_book' pk=book.pk %}"><i class="fa-solid fa-trash text-danger"></i></a></td>
                 </tr>

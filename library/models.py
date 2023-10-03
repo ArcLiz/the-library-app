@@ -21,6 +21,8 @@ class Book(models.Model):
     """ A model to create and manage books """
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
+    series = models.CharField(max_length=100, blank=True, null=True)
+    num_in_series = models.IntegerField(blank=True, null=True)
     genres = models.ManyToManyField(Genre)
     isbn = models.CharField(max_length=13)  # Assuming ISBN-13 format
     cover = ResizedImageField(
@@ -40,6 +42,9 @@ class Book(models.Model):
     rating = models.IntegerField(blank=True, null=True, choices=[
                                  (i, i) for i in range(1, 6)])
     comments = models.CharField(max_length=200, blank=True, null=True)
+
+    class Meta:
+        ordering = ['author', 'series', 'num_in_series', 'title']
 
     def save(self, *args, **kwargs):
         self.book_type = self.book_type.capitalize()
