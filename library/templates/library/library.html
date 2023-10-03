@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+    <div class="col-12 my-3">
+        <h2 class="my-2">My Library</h2>
+
+        <p>Welcome to your library overview.</p>
+        <a href="{% url 'add_book' %}" class="btn btn-primary mb-3 text-light">Add Book</a>
+        <a href="{% url 'quick_add' %}" class="btn btn-primary mb-3 text-light">Quick Add</a>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-primary">
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Genres</th>
+                    <th>Type of Book</th>
+                    <th>Comments</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in table.data %}
+                <tr>
+                <td><a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a></td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.genres.all|join:", " }}</td>
+                <td>{{ book.book_type }}</td>
+                <td>{{ book.comments }}</td>
+                <td><a href="#"><i class="fa-solid fa-pen-to-square text-warning"></i></a></td>
+                <td><a href="#"><i class="fa-solid fa-trash text-danger"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<br>
+<br>
+
+{% endblock content %}

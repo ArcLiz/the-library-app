@@ -1,0 +1,42 @@
+from django import forms
+from .models import Book, Genre
+from django.contrib.admin import widgets
+
+
+class BookForm(forms.ModelForm):
+    """ Form to add a book """
+
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'genres', 'isbn',
+                  'cover', 'book_type', 'read', 'review', 'rating', 'comments']
+
+        labels = {
+            'title': 'Book Title',
+            'author': 'Author',
+            'genres': 'Genres',
+            'isbn': 'ISBN(13)',
+            'cover': 'Cover Image',
+            'book_type': 'Type of Book',
+            'read': 'Read',
+            'review': 'Book Review',
+            'rating': 'Rating',
+            'comments': 'Other Comments'
+        }
+
+
+class QuickAdd(forms.ModelForm):
+    """ Form to add necessary book information only """
+
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'isbn', 'genres', 'cover', 'book_type']
+
+        labels = {
+            'title': 'Book Title',
+            'author': 'Author',
+            'isbn': 'ISBN(13)',
+            'genres': 'Genres',
+            'cover': 'Cover Image',
+            'book_type': 'Type of Book'
+        }

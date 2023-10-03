@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="col-8 offset-2 mt-3">
+    <form method="POST" enctype="multipart/form-data" class="p-2 form">
+        <h1>Add Book</h1>
+        <p class="small"><em>To select multiple genres, you may ctrl + click.</em></p>
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy}}
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary mt-2 text-light">Add Book</button>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock content %}
