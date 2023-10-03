@@ -36,7 +36,7 @@
                 <td>{{ book.book_type }}</td>
                 <td>{{ book.comments }}</td>
                 <td><a href="{% url 'edit_book' pk=book.pk %}"><i class="fa-solid fa-pen-to-square text-warning"></i></a></td>
-                <td><a href="#"><i class="fa-solid fa-trash text-danger"></i></a></td>
+                <td><a href="{% url 'delete_book' pk=book.pk %}"><i class="fa-solid fa-trash text-danger"></i></a></td>
                 </tr>
                 {% endfor %}
             </tbody>

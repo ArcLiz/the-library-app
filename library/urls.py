@@ -1,7 +1,7 @@
 # library urls
 
 from django.urls import path
-from .views import AddBook, QuickAdd, MyLibrary, EditBook, book_details
+from .views import AddBook, QuickAdd, MyLibrary, EditBook, DeleteBook, book_details
 
 urlpatterns = [
     path('add/', AddBook.as_view(), name='add_book'),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('', MyLibrary.as_view(), name='my_library'),
     path('book/<int:pk>/', book_details, name='book_detail'),
     path('edit/<int:pk>/', EditBook.as_view(), name='edit_book'),
+    path('delete/<int:pk>/', DeleteBook.as_view(), name='delete_book'),
 ]

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django_tables2 import SingleTableView
 from .models import Book
 from .forms import BookForm, QuickForm
@@ -45,6 +45,13 @@ class EditBook(UpdateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class DeleteBook(DeleteView):
+    """ Delete Book View"""
+    model = Book
+    success_url = '/library/'
+    template_name = 'library/delete_book.html'
 
 
 class MyLibrary(SingleTableView):

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="col-8 offset-2 mt-3">
+    <form method="POST" class="p-2 form text-center">
+        <h1>Delete Book</h1>
+        {% csrf_token %}
+        <p>Are you sure you want to delete {{ object }}?</p>
+        <a href="/library" class="btn btn-info mt-2 text-light text-right">No, tack me back</a>
+        <input type="submit" value="Yes, Delete it" class="btn btn-danger mt-2 text-light">
+    </form>
+</div>
+</div>
+{% endblock %}
