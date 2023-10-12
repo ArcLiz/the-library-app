@@ -4,28 +4,45 @@
 {% block content %}
     <div class="container p-4">
         <div class="row">
-            <div class="col-10 offset-1 bg-light shadow-lg mt-3 d-flex p-4">
-                <div>
-                    <p class="small m-0 text-muted"><em>Welcome to the profile of...</em></p>
+            <div class="col-10 offset-1 bg-light shadow-lg mt-0 p-4">
+                <div class="row">
+                <div class="col-md-8">
+                    <p class="small m-0 text-muted fst-italic">Welcome to the profile of...</p>
+                        
                     <hr class="mt-0">
-                    <h1 class="mt-0 mx-3">{{ profile.name }}</h1>
-                    <hr>
-                    <p class="ms-3"><strong>Joined On: </strong>{{ profile.user.date_joined|date:'M d,  Y' }}</p>
+                    <h1 class="mt-0 mx-3 text-center">{{ profile.name }}</h1>
+                    <hr class="mb-0">
+                    <p class="small mt-0 text-end text-muted fst-italic">Joined {{ profile.user.date_joined|date:'M d, Y'}}</p>
                     <p class="ms-3"><strong>Registered Books: </strong>{{ profile.user.book_owner.count }}</p>
-                    <p class="ms-3"><strong>Bio: </strong>{{ profile.bio }}</p>
-                    {% if request.user == profile.user %}
-                    <button class="ms-3 btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#editProfile">Edit</button>
-                    {% endif %}
+                    <p class="ms-3">{{ profile.bio|safe }}</p>
+                    {{ profile.wishlist|safe}}
                 </div>
                     
-                <div class="ms-auto ps-6">
+                <div class="col-md-4 d-flex justify-content-center">
                     {% if profile.image.url %}
-                    <img src="{{ profile.image.url }}" alt="{{ profile.name }}'s profile image" class="rounded-circle">
+                    <img src="{{ profile.image.url }}" alt="{{ profile.name }}'s profile image" class="rounded-5" style="height: 200px;">
                     {% else %}
                     <img src="https://placehold.co/300x300" alt="Image not found icon" class="img-thumbnail">
                     {% endif %}
+
                 </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        {% if profile.goodreads %}
+                        <a href="{{ profile.goodreads }}" target="_blank" class="btn btn-primary rounded-4 text-light me-3"><i class="fa-brands fa-goodreads fa-xl"></i></a>
+                        {% endif %}
+                        {% if profile.storygraph %}
+                        <a href="{{ profile.storygraph }}" target="_blank" class="btn btn-secondary rounded-4 text-light mx-3"><i class="fa-solid fa-book fa-xl"></i></a>
+                        {% endif %}
+                        {% if profile.amazon_wl %}
+                        <a href="{{ profile.amazon_wl }}" target="_blank" class="btn btn-primary rounded-4 text-light ms-3"><i class="fa-brands fa-amazon fa-xl"></i></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+
             </div>
+            
             <div class="modal" id="editProfile" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -46,6 +63,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1 mt-2 text-end">
+                {% if request.user == profile.user %}
+                    <button class="btn btn-primary text-light text-end p-1 mb-2" type="button" data-bs-toggle="modal" data-bs-target="#editProfile">
+                        <p class="small mb-0">Edit Profile</p>
+                    </button>
+                {% endif %}
             </div>
         </div>
     </div>

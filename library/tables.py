@@ -18,4 +18,5 @@ class BookTable(tables.Table):
 
     class Meta:
         model = Book
-        template_name = "django_tables2/bootstrap.html"
+        template_name = "django_tables2/bootstrap5.html"
+        fields = ('title', 'author', 'genres', 'book_type', 'comments', 'read')

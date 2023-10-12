@@ -15,7 +15,7 @@ class Profiles(TemplateView):
         profile = Profile.objects.get(user=self.kwargs["pk"])
         context = {
             'profile': profile,
-            'form': ProfileForm(instance=profile)
+            'form': ProfileForm(instance=profile),
         }
 
         return context

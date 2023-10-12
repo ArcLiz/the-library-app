@@ -61,7 +61,7 @@ class DeleteBook(DeleteView):
 class MyLibrary(SingleTableView):
     """ User Library """
     model = Book
-    table_class = BookTable
+    table = BookTable
     template_name = 'library/library.html'
     context_object_name = 'books'
 

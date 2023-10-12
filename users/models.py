@@ -5,6 +5,8 @@ from django_resized import ResizedImageField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from djrichtextfield.models import RichTextField
+
 
 class Profile(models.Model):
     """ User Profile """
@@ -13,7 +15,11 @@ class Profile(models.Model):
     name = models.CharField(max_length=100)
     image = ResizedImageField(
         size=[300, 300], quality=75, upload_to="profiles/", force_format="WEBP", blank=False)
-    bio = models.TextField(blank=True, null=True)
+    bio = RichTextField(max_length=1000, null=True, blank=True)
+    goodreads = models.URLField(max_length=200, blank=True, null=True)
+    storygraph = models.URLField(max_length=200, blank=True, null=True)
+    amazon_wl = models.URLField(max_length=200, blank=True, null=True)
+    wishlist = RichTextField(max_length=2000, null=True, blank=True)
 
     def __str__(self):
         return str(self.user.username)
