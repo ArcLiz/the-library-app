@@ -1,10 +1,27 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block navbar %}
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+      <a class="nav-link active border-start ps-2" aria-current="page" href="{% url 'profile' request.user.id %}">Profile</a>
+    </li>
+    <li class="nav-item border-start">
+      <a class="nav-link ps-2" href="{% url 'my_library' %}">Library</a>
+    </li>
+    <li class="nav-item border-start">
+      <a class="nav-link ps-2" href="#">Settings</a>
+    </li>
+  </ul>
+  <div class="d-flex">
+    <a href="{% url 'account_logout' %}" class="btn btn-info rounded-3 p-2 text-light opacity-75 my-3 my-md-0 text-small"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+  </div>
+{% endblock %}
+
 {% block content %}
     <div class="container p-4">
         <div class="row">
-            <div class="col-10 offset-1 bg-light shadow-lg mt-0 p-4">
+            <div class="col-lg-10 offset-lg-1 bg-light shadow-lg mt-0 p-4">
                 <div class="row">
                 <div class="col-md-8">
                     <p class="small m-0 text-muted fst-italic">Welcome to the profile of...</p>
@@ -14,18 +31,25 @@
                     <hr class="mb-0">
                     <p class="small mt-0 text-end text-muted fst-italic">Joined {{ profile.user.date_joined|date:'M d, Y'}}</p>
                     <p class="ms-3"><strong>Registered Books: </strong>{{ profile.user.book_owner.count }}</p>
-                    <p class="ms-3">{{ profile.bio|safe }}</p>
-                    {{ profile.wishlist|safe}}
+                    <p class="ms-3"><strong>About Me:</strong> {{ profile.bio|safe }}</p>
                 </div>
                     
                 <div class="col-md-4 d-flex justify-content-center">
                     {% if profile.image.url %}
-                    <img src="{{ profile.image.url }}" alt="{{ profile.name }}'s profile image" class="rounded-5" style="height: 200px;">
+                    <img src="{{ profile.image.url }}" alt="{{ profile.name }}'s profile image" class="rounded-circle" style="height: 200px;">
                     {% else %}
                     <img src="https://placehold.co/300x300" alt="Image not found icon" class="img-thumbnail">
                     {% endif %}
 
                 </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-7 text-center">
+                        <hr>
+                        <h5>My Wishlist</h5>
+                        {{ profile.wishlist|safe}}
+                        <hr>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">

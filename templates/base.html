@@ -20,7 +20,32 @@
   </head>
   <body class="d-flex flex-column vh-100">
     <!-- Finished Navbar-->
-    <nav class="navbar navbar-expand-sm navbar-light bg-light py-0">
+    <nav class="navbar navbar-expand-md navbar-light bg-light py-0">
+      <div class="container-fluid">
+        <a href="/" class="navbar-brand me-auto"><img src="{% static 'images/ll-logo.png' %}" style="height: 75px;" alt=""></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ms-3" id="navbarSupportedContent">
+          {% if user.is_authenticated %}
+          {% block navbar %}{% endblock %}
+          {% else %}
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active border-start ps-2" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item border-start">
+              <a class="nav-link ps-2" href="{% url 'account_signup' %}">Register</a>
+            </li>
+          </ul>
+          <div class="d-flex">
+            <a href="{% url 'account_login' %}" class="btn btn-info rounded-3 p-2 text-light opacity-75 my-3 my-md-0 text-small"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+    {% comment %} <nav class="navbar navbar-expand-sm navbar-light bg-light py-0">
       <div class="container-fluid">
           <a href="/" class="navbar-brand me-auto"><img src="{% static 'images/ll-logo.png' %}" style="height: 75px;" alt=""></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,7 +116,7 @@
               </ul>
           </div>
       </div>
-  </nav>  
+  </nav>   {% endcomment %}
     <main class="flex-grow-1">
       {% block content %}
       {% endblock %}
