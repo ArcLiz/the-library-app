@@ -21,7 +21,7 @@
 
 <div id="bookContainer" class="container">
     <div class="row my-3">
-        <div class="col-10 offset-1 text-center">
+        <div class="col-lg-10 offset-lg-1 text-center mt-5">
             <h2 class="heading-6 mb-0">{{ book.title }}</h2>
             {% if book.series %}<p class="small text-muted mt-0">(Book #{{book.num_in_series}} in {{book.series}})</p>{% endif %}
             <hr class="m-auto" style="width: 60vw">
@@ -30,29 +30,40 @@
     </div>
     <div class="row">
         <div class="col-lg-10 offset-lg-1 shadow-lg bg-light d-flex">
-            <div class="mt-3">
-                <h3>Book Details </h3>
-                <p>ISBN(13): {{ book.isbn }}</p>
-                <p>Type of Book: {{ book.book_type }}</p>
-                <p>Comments: {{ book.comments }}</p>
+            <div class="col-md-3 mt-3">
+                <h3>Details</h3>
+                <p><strong>ISBN(13): </strong><br> {{ book.isbn }}</p>
+                <p><strong>Format: </strong><br>{{ book.book_type }}</p>
+                <p><strong>Comments: </strong><br>{{ book.comments }}</p>
             </div>
-            <div class="m-3 border-start ps-3">
-                <h3>Reading Status {% if book.read == True %} <span class="small"><i class="fa-solid fa-circle-check text-success fa-2xs"></i></span></h3>
-                    <p>I rated this book {{ book.rating }} out of 5.</p>
-                    <h4>Review</h4>
-                    <p>{{ book.review }}</p>
-                {% else %}</h3>
-                    <p>Uh oh, it seems I've not read this book yet!</p>
+            <div class="col-md-4 m-3 border-start ps-3">
+                {% if book.read == True %}
+                <h3><span class="small text-success">Book is read <i class="fa-solid fa-circle-check text-success fa-xs"></i></span></h3>
+                {% if book.rating %}
+                <p><strong>Rating: </strong><br>I rated this book {{ book.rating }} out of 5.</p>
+                {% else %}
+                <p><strong>Rating: </strong><br><em>No book rating found.</em></p>
+                {% endif %}
+                {% if book.review %}
+                <p><strong>Review: </strong><br>{{ book.review }}</p>
+                {% else %}
+                <p><strong>Review: </strong><br>No review found.</p>
+                {% endif %}
+                {% else %}
+                <h3><span class="small text-danger">Book is unread <i class="fa-regular fa-circle-xmark text-danger fa-xs"></i></span></h3>
+                <p>Uh oh, it seems I've not read this book yet!</p>
                 {% endif %}
             </div>
             
-            <div class="ms-auto my-3" style="width: 20%">
+            <div class="ms-auto my-3" style="width: 25%">
                 <img src="{{ book.cover.url }}" alt="" style="width: 100%">
             </div>
         </div>
         <div class="col-lg-10 offset-lg-1 text-end mt-2">
-            <a href="{% url 'edit_book' pk=book.pk %}" class="btn btn-warning rounded text-center">Edit</a>
-            <a href="#" class="btn btn-danger rounded text-light text-center">Delete</a>
+            <a href="{% url 'delete_book' pk=book.pk %}" class="btn btn-danger rounded text-light text-center p-1"><small>Delete</small></a>
+            <a href="{% url 'edit_book' pk=book.pk %}" class="btn btn-warning rounded text-center p-1"><small>Edit</small></a>
+            
+            <a href="/library" class="ms-3 btn btn-primary rounded text-center text-light">Back</a>
 
         </div>
     </div>

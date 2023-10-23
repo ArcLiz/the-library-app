@@ -6,10 +6,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
 
     <script src="https://kit.fontawesome.com/9289bd467b.js" crossorigin="anonymous"></script>
 
@@ -28,7 +24,22 @@
         </button>
         <div class="collapse navbar-collapse ms-3" id="navbarSupportedContent">
           {% if user.is_authenticated %}
-          {% block navbar %}{% endblock %}
+          {% block navbar %}
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link border-start ps-2" aria-current="page" href="{% url 'profile' request.user.id %}">Profile</a>
+            </li>
+            <li class="nav-item border-start">
+              <a class="nav-link ps-2" href="{% url 'my_library' %}">Library</a>
+            </li>
+            <li class="nav-item border-start">
+              <a class="nav-link ps-2" href="#">Settings</a>
+            </li>
+          </ul>
+          <div class="d-flex">
+            <a href="{% url 'account_logout' %}" class="btn btn-info rounded-3 p-2 text-light opacity-75 my-3 my-md-0 text-small"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+          </div>
+          {% endblock %}
           {% else %}
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -45,78 +56,6 @@
         </div>
       </div>
     </nav>
-    {% comment %} <nav class="navbar navbar-expand-sm navbar-light bg-light py-0">
-      <div class="container-fluid">
-          <a href="/" class="navbar-brand me-auto"><img src="{% static 'images/ll-logo.png' %}" style="height: 75px;" alt=""></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <!-- Small Collapse (Hamburger Menu) -->
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <div class="d-sm-none ms-3">
-                  <ul class="navbar-nav mb-2 mb-lg-0">
-                    {% if user.is_authenticated %}
-                    <li><a class="dropdown-item" href="{% url 'profile' request.user.id %}">Profile</a></li>
-                    <li><a class="dropdown-item" href="#">My Library</a></li>
-                    <hr class="my-1">
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user"></i> Account</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
-                    <hr class="my-1">
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
-                    {% else %}
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;&nbsp;Log In</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user-plus"></i> &nbsp;Sign Up</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> &nbsp;&nbsp;Settings</a></li>
-                    {% endif %}
-                  </ul>
-              </div>
-          </div>
-          <!-- Tabs Version (md+) -->
-          <div class="mt-auto">
-              <ul class="nav nav-tabs d-sm-flex d-none">
-                {% block nav_tabs %}{% endblock %}
-                {% if user.is_authenticated %}
-                  {% if request.path == '/library/' %}
-                    <li class="nav-item">
-                      <a href="{% url 'profile' request.user.id %}" class="nav-link">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'my_library' %}" class="nav-link active">My Library</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                      <a href="{% url 'profile' request.user.id %} " class="nav-link active">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'my_library' %}" class="nav-link">My Library</a>
-                    </li>
-                  {% endif %}
-                {% else %}
-                  <li class="nav-item">
-                    <a href="/" class="nav-link active" aria-current="page">Profile</a>
-                  </li>
-                {% endif %}
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-user"></i></a>
-                      <ul class="dropdown-menu dropdown-menu-end">
-                        {% if user.is_authenticated %}
-                          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user"></i> Account</a></li>
-                          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="{% url 'account_logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a></li>
-                        {% else %}
-                          <li><a class="dropdown-item" href="{% url 'account_login' %}"><i class="fa-solid fa-user"></i> &nbsp;&nbsp;Log In</a></li>
-                          <li><a class="dropdown-item" href="{% url 'account_signup' %}"><i class="fa-solid fa-user-plus"></i> &nbsp;Register</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> &nbsp;&nbsp;Settings</a></li>
-                        {% endif %}
-                          
-                      </ul>
-                  </li>
-              </ul>
-          </div>
-      </div>
-  </nav>   {% endcomment %}
     <main class="flex-grow-1">
       {% block content %}
       {% endblock %}
