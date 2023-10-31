@@ -53,10 +53,19 @@
                 <h3><span class="small text-danger">Book is unread <i class="fa-regular fa-circle-xmark text-danger fa-xs"></i></span></h3>
                 <p>Uh oh, it seems I've not read this book yet!</p>
                 {% endif %}
+                {% if book.description %}
+                <p><strong>Description</strong><br>{{ book.description|safe }}</p>
+                
+                {% endif %}
+                
             </div>
             
             <div class="ms-auto my-3" style="width: 25%">
-                <img src="{{ book.cover.url }}" alt="" style="width: 100%">
+              {% if book.cover.url is not None %}
+              <img src="{{ book.cover.url }}" alt="" style="width: 100%">
+              {% else %}
+              <img src="https://placehold.co/200x300" style="width: 100%" alt="">
+              {% endif %}
             </div>
         </div>
         <div class="col-lg-10 offset-lg-1 text-end mt-2">

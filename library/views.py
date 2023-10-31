@@ -1,12 +1,18 @@
+import csv
+from csv import DictReader
+from io import TextIOWrapper
+from django.contrib.auth.decorators import login_required
+
+
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django_tables2 import SingleTableView
 
 from django.db.models import Q
 
-from .models import Book
+from .models import Book, Genre
 from .tables import BookTable
-from .forms import BookForm, QuickForm
+from .forms import BookForm, QuickForm, CSVUploadForm
 
 
 # Create your views here.
@@ -84,8 +90,61 @@ class MyLibrary(SingleTableView):
 
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Get the total count of books
+        total_books_count = Book.objects.filter(user=self.request.user).count()
+        context['total_books_count'] = total_books_count
+
+        return context
+
 
 def book_details(request, pk):
     """ View for the details of the book """
     book = get_object_or_404(Book, pk=pk)
     return render(request, 'library/book_detail.html', {'book': book})
+
+
+@login_required
+def upload_csv(request):
+    if request.method == "POST":
+        form = CSVUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            csv_file = form.cleaned_data['csv_file']
+            user = request.user
+
+            try:
+                csv_text = TextIOWrapper(csv_file.file, encoding='utf-8')
+                reader = DictReader(csv_text)
+
+                for row in reader:
+                    title = row['title']
+                    author = row['author']
+                    comments = row['comments']
+
+                    description = row.get('description', '')
+                    if len(description) > 500:
+                        truncated_description = description[:500]
+                    else:
+                        truncated_description = description
+
+                    combined_data = f"{truncated_description} <br><br>Book published in {row['published']}. <br>The book length is: {row['length']}"
+
+                    # Create and save Book object
+                    book = Book(title=title, author=author,
+                                comments=comments, description=combined_data, user=user)
+                    book.save()
+
+                    genre_name = row['genres'].strip()
+                    genre, created = Genre.objects.get_or_create(
+                        name=genre_name)
+                    book.genres.add(genre)
+
+                return render(request, 'library.html', {'message': 'CSV data imported successfully.'})
+            except Exception as e:
+                return render(request, 'error.html', {'error_message': str(e)})
+    else:
+        form = CSVUploadForm()
+
+    return render(request, 'settings.html', {'form': form})

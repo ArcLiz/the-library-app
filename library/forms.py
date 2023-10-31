@@ -42,3 +42,7 @@ class QuickForm(forms.ModelForm):
             'cover': 'Cover Image',
             'book_type': 'Type of Book'
         }
+
+
+class CSVUploadForm(forms.Form):
+    csv_file = forms.FileField()

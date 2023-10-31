@@ -24,7 +24,8 @@ class Book(models.Model):
     series = models.CharField(max_length=100, blank=True, null=True)
     num_in_series = models.IntegerField(blank=True, null=True)
     genres = models.ManyToManyField(Genre)
-    isbn = models.CharField(max_length=13)  # Assuming ISBN-13 format
+    isbn = models.CharField(max_length=13, blank=True,
+                            null=True)  # Assuming ISBN-13 format
     cover = ResizedImageField(
         size=[400, None], quality=75, upload_to='books/', force_format='WEBP',
         blank=True, null=True
@@ -43,6 +44,7 @@ class Book(models.Model):
     rating = models.IntegerField(blank=True, null=True, choices=[
                                  (i, i) for i in range(1, 6)])
     comments = models.CharField(max_length=200, blank=True, null=True)
+    description = models.CharField(max_length=2000, blank=True, null=True)
 
     class Meta:
         ordering = ['author', 'series', 'num_in_series', 'title']

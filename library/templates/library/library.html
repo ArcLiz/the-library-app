@@ -28,7 +28,7 @@
             {% if request.GET.q %}
             <p>Your search of "{{ request.GET.q }}" yielded {{ books.count }} result(s).</p> 
             {% else %}
-            <p>You currently have {{ books.count }} book(s) in your collection.<br>
+            <p>You currently have {{ total_books_count }} book(s) in your collection.<br>
             {{ unread }} of those are listed as unread.</p>
             
             {% endif %}
