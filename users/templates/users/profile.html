@@ -66,6 +66,15 @@
                 </div>
 
             </div>
+
+            {% if user.is_authenticated and profile.name is None %}
+            <h3 class="mt-4">Uh-oh, this profile doesn't exist.</h3>
+                {% if request.user == profile.user %}
+                <button class="btn btn-primary text-light text-end p-1 mb-2" type="button" data-bs-toggle="modal" data-bs-target="#editProfile">
+                    <p class="small mb-0">Add Profile</p>
+                </button>
+                {% endif %}
+            {% endif %}
             
             <div class="modal" id="editProfile" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
                 <div class="modal-dialog">
