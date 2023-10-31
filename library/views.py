@@ -59,30 +59,30 @@ class DeleteBook(DeleteView):
 
 
 class MyLibrary(SingleTableView):
-    """ User Library """
     model = Book
-    table = BookTable
+    table_class = BookTable
     template_name = 'library/library.html'
     context_object_name = 'books'
+    paginate_by = 20
 
     def get_queryset(self):
         user = self.request.user
         query = self.request.GET.get('q')
+        # Check if the reset parameter is present
+        reset_sorting = self.request.GET.get('reset_sorting')
 
         queryset = Book.objects.filter(user=user)
 
         if query:
             queryset = queryset.filter(
-                Q(title__icontains=query) | Q(
-                    author__icontains=query) | Q(series__icontains=query)
+                Q(title__icontains=query) | Q(author__icontains=query)
             )
 
-        return queryset
+        if reset_sorting:
+            # Replace 'pk' with your default sorting criteria
+            queryset = queryset.order_by('pk')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['unread'] = context['books'].filter(read=False).count()
-        return context
+        return queryset
 
 
 def book_details(request, pk):
