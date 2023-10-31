@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = [
-    'litlister-lib-c04a4b44fde4.herokuapp.com', '127.0.0.1'
+    'pp4-litlist-dee1a055f48d.herokuapp.com', '127.0.0.1'
 ]
 
 
