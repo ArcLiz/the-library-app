@@ -50,7 +50,9 @@
                     <h1 class="mt-0 mx-3 text-center">{{ profile.name }}</h1>
                     <hr class="mb-0">
                     <p class="small mt-0 text-end text-muted fst-italic">Joined {{ profile.user.date_joined|date:'M d, Y'}}</p>
-                    <p class="ms-3"><strong>Registered Books: </strong>{{ profile.user.book_owner.count }}</p>
+                    <p class="ms-3"><strong>Registered Books: </strong>{{ profile.user.book_owner.count }} {% if profile.user != request.user %}
+                        <a href="{% url 'user_library' profile.user.id %}">[View Library]</a>
+                    {% endif %}</p>
                     <p class="ms-3"><strong>About Me:</strong> {{ profile.bio|safe }}</p>
                 </div>
                     
@@ -63,6 +65,7 @@
 
                 </div>
                 </div>
+                {% if profile.wishlist %}
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-7 text-center">
                         <hr>
@@ -71,6 +74,7 @@
                         <hr>
                     </div>
                 </div>
+                {% endif %}
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">
                         {% if profile.goodreads %}

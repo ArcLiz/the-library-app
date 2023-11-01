@@ -1,7 +1,9 @@
 import csv
 from csv import DictReader
 from io import TextIOWrapper
+from typing import Any, Dict
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -9,6 +11,7 @@ from django_tables2 import SingleTableView
 
 from django.db.models import Q
 
+from users.models import Profile
 from .models import Book, Genre
 from .tables import BookTable
 from .forms import BookForm, QuickForm, CSVUploadForm
@@ -96,6 +99,48 @@ class MyLibrary(SingleTableView):
         total_books_count = Book.objects.filter(user=self.request.user).count()
         context['total_books_count'] = total_books_count
 
+        return context
+
+
+class UserLibrary(SingleTableView):
+    model = Book
+    table_class = BookTable
+    template_name = 'library/user_library.html'
+    context_object_name = 'books'
+    paginate_by = 20
+
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        user = get_object_or_404(User, id=user_id)
+        queryset = Book.objects.filter(user=user)
+
+        query = self.request.GET.get('q')
+        reset_sorting = self.request.GET.get('reset_sorting')
+
+        if query:
+            queryset = self.filter_queryset(queryset, query)
+
+        if reset_sorting:
+            # Replace 'pk' with your default sorting criteria
+            queryset = queryset.order_by('pk')
+
+        return queryset
+
+    def filter_queryset(self, queryset, query):
+        return queryset.filter(
+            Q(title__icontains=query) | Q(author__icontains=query)
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_id = self.kwargs['user_id']
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile.objects.get(user=user)
+
+        total_books_count = Book.objects.filter(user=profile.user).count()
+
+        context['total_books_count'] = total_books_count
+        context['profile'] = profile
         return context
 
 
