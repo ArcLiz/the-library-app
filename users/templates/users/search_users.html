@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+    <div class="col-md-8 offset-md-2 mt-3">
+        <h2 class="my-2">Looking for someone?</h2>
+        <p>Are you looking for a friend or family member's profile and library? If they have chosen to make their profile public, you'll be able to search for them by username here.</p>
+<form class="form-inline" method="get">
+    {% csrf_token %}
+    <div class="d-flex">
+        <div class="col">
+        {{ form|crispy }}
+        </div>
+        <div class="col">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </div>
+    </div>
+</form>
+<hr class="mt-3">
+{% if results %}
+    <h3 class="mt-2">Search Results</h3>
+    <ul>
+        {% for user in results %}
+            <li><a href="{% url 'profile' pk=user.pk %}">{{ user.username }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock content %}

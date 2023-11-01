@@ -28,5 +28,5 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
     path('settings/', views.upload_csv, name='upload_csv'),
-    path('profile-redirect/', profile_redirect, name='profile-redirect')
+    path('profile-redirect/', profile_redirect, name='profile-redirect'),
 ]

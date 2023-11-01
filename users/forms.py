@@ -32,3 +32,12 @@ class ProfileForm(forms.ModelForm):
             "amazon_wl": "Amazon Wishlist (url)",
             "wishlist": "Wishlist",
         }
+
+
+class UserSearchForm(forms.Form):
+    username = forms.CharField(
+        max_length=150,
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Search Users...'}),
+        label='',
+    )

@@ -1,10 +1,10 @@
 from django.views.generic import TemplateView, UpdateView
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.urls import reverse
-from django.shortcuts import redirect
-
+from django.shortcuts import redirect, render
+from django.contrib.auth.models import User
 from .models import Profile
-from .forms import ProfileForm
+from .forms import ProfileForm, UserSearchForm
 
 # Create your views here.
 
@@ -41,3 +41,22 @@ def profile_redirect(request):
         user_id = request.user.id
         profile_url = reverse('profile', args=[user_id])
         return redirect(profile_url)
+
+
+class UserSearchView(TemplateView):
+    template_name = 'users/search_users.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = UserSearchForm()
+
+        # Handle GET request for searching users
+        if self.request.method == 'GET':
+            # Use 'username' instead of 'name'
+            username = self.request.GET.get('username')
+            if username:
+                results = User.objects.filter(username__icontains=username)
+                context['results'] = results
+
+        context['form'] = form  # Add the form to the context
+        return context
