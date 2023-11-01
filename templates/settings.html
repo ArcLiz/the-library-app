@@ -17,9 +17,16 @@
 {% endblock %}
 
 {% block content %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Upload CSV</button>
-</form>
+<div class="container">
+  <div class="row">
+    <h3>Super Secret Function</h3>
+    <p>Upload your old library database by making a csv file containing the column headers author, title, genre, blabla..</p>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit">Upload CSV</button>
+  </form>
+  </div>
+</div>
+
 {% endblock %}

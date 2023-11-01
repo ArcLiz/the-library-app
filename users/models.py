@@ -21,6 +21,9 @@ class Profile(models.Model):
     amazon_wl = models.URLField(max_length=200, blank=True, null=True)
     wishlist = RichTextField(max_length=2000, null=True, blank=True)
 
+    # Privacy Settings
+    privacy = models.BooleanField(default=False)
+
     def __str__(self):
         return str(self.user.username)
 

@@ -3,7 +3,6 @@ from csv import DictReader
 from io import TextIOWrapper
 from django.contrib.auth.decorators import login_required
 
-
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django_tables2 import SingleTableView
@@ -108,6 +107,8 @@ def book_details(request, pk):
 
 @login_required
 def upload_csv(request):
+    privacy_form = None
+
     if request.method == "POST":
         form = CSVUploadForm(request.POST, request.FILES)
         if form.is_valid():
@@ -144,6 +145,7 @@ def upload_csv(request):
                 return render(request, 'library.html', {'message': 'CSV data imported successfully.'})
             except Exception as e:
                 return render(request, 'error.html', {'error_message': str(e)})
+
     else:
         form = CSVUploadForm()
 

@@ -6,6 +6,7 @@ from .models import Profile
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
+        'privacy',
         'pk',
         'user',
         'bio',

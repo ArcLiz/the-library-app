@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 
 from django_resized import ResizedImageField
 
-# Create your models here.
-
 
 class Genre(models.Model):
     """ A model to create the list of genres """
@@ -46,6 +44,7 @@ class Book(models.Model):
     comments = models.CharField(max_length=200, blank=True, null=True)
     description = models.CharField(max_length=2000, blank=True, null=True)
 
+    # Standard ordering
     class Meta:
         ordering = ['author', 'series', 'num_in_series', 'title']
 
