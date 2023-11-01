@@ -20,22 +20,25 @@
 {% endblock %}
 
 {% block content %}
-
+{% if profile.privacy %}
+<div class="col-md-8 text-center offset-md-2 bg-light shadow-lg p-4">
+    <h3 class="mt-4">Oh no!</h3>
+    <p class="mt-2">This profile is private.</p>
+    <a href="javascript:history.back();" class="btn btn-primary text-light text-end p-1 mb-2">Back</a>
+</div> 
+{% else %}
     {% if not profile.name %}
     <div class="col-md-8 text-center offset-md-2 bg-light shadow-lg p-4">
         <h3 class="mt-4">Oh no!</h3>
                     {% if request.user == profile.user %}
-                    <button class="btn btn-primary text-light text-end p-1 mb-2" type="button" data-bs-toggle="modal" data-bs-target="#editProfile">
-                        <p class="small mb-0">Add Profile</p>
-                    </button><br>
-                    <a href="/library" class="btn btn-secondary text-light text-end p-1 mb-2"><small>Go to Library</small></a>
-                    {% else %}
-                        {% if not profile.privacy and request.user.is_authenticated %}
-                        <p class="mt-2">This profile is private.</p>
-                        {% else %}
                         <p class="mt-2">This profile has not yet been set up.</p>
-                        {% endif %}
-                    <a href="javascript:history.back();" class="btn btn-primary text-light text-end p-1 mb-2">Back</a>
+                        <button class="btn btn-primary text-light text-end p-1 mb-2" type="button" data-bs-toggle="modal" data-bs-target="#editProfile">
+                            <p class="small mb-0">Add Profile</p>
+                        </button><br>
+                        <a href="/library" class="btn btn-secondary text-light text-end p-1 mb-2"><small>Go to Library</small></a>
+                    {% else %}
+                        <p class="mt-2">This profile has not yet been set up.</p>
+                        <a href="javascript:history.back();" class="btn btn-primary text-light text-end p-1 mb-2">Back</a>
                     {% endif %}
     </div>
 
@@ -128,5 +131,5 @@
         </div>
         
     </div>
-
+    {% endif %}
 {% endblock %}
