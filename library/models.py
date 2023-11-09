@@ -29,10 +29,10 @@ class Book(models.Model):
         blank=True, null=True
     )
     BOOK_TYPES = (
-        ('ebook', 'Ebook'),
-        ('audiobook', 'Audiobook'),
-        ('hardcover', 'Hardcover'),
-        ('paperback', 'Paperback'),
+        ('Ebook', 'Ebook'),
+        ('Audiobook', 'Audiobook'),
+        ('Hardcover', 'Hardcover'),
+        ('Paperback', 'Paperback'),
     )
     book_type = models.CharField(max_length=20, choices=BOOK_TYPES)
     user = models.ForeignKey(
