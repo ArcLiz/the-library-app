@@ -82,15 +82,19 @@ class MyLibrary(SingleTableView):
         queryset = Book.objects.filter(user=user)
 
         if query:
-            queryset = queryset.filter(
-                Q(title__icontains=query) | Q(author__icontains=query)
-            )
+            queryset = self.filter_queryset(queryset, query)
 
         if reset_sorting:
-            # Replace 'pk' with your default sorting criteria
             queryset = queryset.order_by('pk')
 
         return queryset
+
+    def filter_queryset(self, queryset, query):
+        return queryset.filter(
+            Q(title__icontains=query) |
+            Q(author__icontains=query) |
+            Q(series__icontains=query)
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -121,14 +125,15 @@ class UserLibrary(SingleTableView):
             queryset = self.filter_queryset(queryset, query)
 
         if reset_sorting:
-            # Replace 'pk' with your default sorting criteria
             queryset = queryset.order_by('pk')
 
         return queryset
 
     def filter_queryset(self, queryset, query):
         return queryset.filter(
-            Q(title__icontains=query) | Q(author__icontains=query)
+            Q(title__icontains=query) |
+            Q(author__icontains=query) |
+            Q(series__icontains=query)
         )
 
     def get_context_data(self, **kwargs):

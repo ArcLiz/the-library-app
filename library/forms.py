@@ -9,7 +9,7 @@ class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ['title', 'author', 'series', 'num_in_series', 'genres', 'isbn',
-                  'cover', 'book_type', 'read', 'review', 'rating', 'comments']
+                  'cover', 'book_type', 'read', 'review', 'rating', 'description', 'comments']
 
         labels = {
             'title': 'Book Title',
@@ -23,6 +23,7 @@ class BookForm(forms.ModelForm):
             'read': 'Read',
             'review': 'Book Review',
             'rating': 'Rating',
+            'description': 'Book Description',
             'comments': 'Other Comments'
         }
 
