@@ -70,9 +70,10 @@
             </div>
         </div>
         <div class="col-lg-10 offset-lg-1 text-end mt-2">
+          {% if request.user == book.user %}
             <a href="{% url 'delete_book' pk=book.pk %}" class="btn btn-danger rounded text-light text-center p-1"><small>Delete</small></a>
             <a href="{% url 'edit_book' pk=book.pk %}" class="btn btn-warning rounded text-center p-1"><small>Edit</small></a>
-            
+          {% endif %}  
             <a href="/library" class="ms-3 btn btn-primary rounded text-center text-light">Back</a>
 
         </div>

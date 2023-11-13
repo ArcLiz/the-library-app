@@ -129,6 +129,7 @@ class UserLibrary(SingleTableView):
 
         return queryset
 
+    # search function
     def filter_queryset(self, queryset, query):
         return queryset.filter(
             Q(title__icontains=query) |
@@ -157,6 +158,7 @@ def book_details(request, pk):
 
 @login_required
 def upload_csv(request):
+    """ function to upload a csv with multiple books """
     privacy_form = None
 
     if request.method == "POST":
@@ -180,6 +182,7 @@ def upload_csv(request):
                     else:
                         truncated_description = description
 
+                    # Special data for my mothers books only
                     combined_data = f"{truncated_description} <br><br>Book published in {row['published']}. <br>The book length is: {row['length']}"
 
                     # Create and save Book object

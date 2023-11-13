@@ -1,9 +1,9 @@
 import django_tables2 as tables
 from .models import Book
-import django_filters
 
 
 class BookTable(tables.Table):
+    """ Table to view all books for one user """
     title = tables.LinkColumn(
         'book_detail', args=[tables.A('pk')], verbose_name="Title")
     author = tables.Column(verbose_name="Author")
@@ -20,13 +20,3 @@ class BookTable(tables.Table):
         model = Book
         template_name = "library/custom_table.html"
         fields = ('title', 'author', 'genres', 'book_type', 'read', 'comments')
-
-
-class BookFilter(django_filters.FilterSet):
-    class Meta:
-        model = Book
-        fields = {
-            'title': ['icontains'],
-            'author': ['icontains'],
-            'series': ['icontains'],
-        }

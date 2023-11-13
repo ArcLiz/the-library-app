@@ -23,7 +23,7 @@ class ProfileForm(forms.ModelForm):
         }
 
         labels = {
-            "privacy": "Is your profile and library public to other users?",
+            "privacy": "Tick this if your profile is Private.",
             "name": "Display Name",
             "image": "Profile Picture",
             "bio": "Bio",
