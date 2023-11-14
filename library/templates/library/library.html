@@ -10,9 +10,7 @@
     <li class="nav-item border-start">
       <a class="nav-link active ps-2" href="{% url 'my_library' %}">Library</a>
     </li>
-    <li class="nav-item border-start">
-      <a class="nav-link ps-2" href="#">Settings</a>
-    </li>
+
   </ul>
   <div class="d-flex">
     <a href="{% url 'account_logout' %}" class="btn btn-info rounded-3 p-2 text-light opacity-75 my-3 my-md-0 text-small"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
@@ -29,8 +27,7 @@
             {% if request.GET.q %}
             <p>Your search of "{{ request.GET.q }}" yielded {{ books.count }} result(s).</p> 
             {% else %}
-            <p>You currently have {{ total_books_count }} book(s) in your collection.<br>
-            {{ unread }} of those are listed as unread.</p>
+            <p>You currently have {{ total_books_count }} book(s) in your collection.</p>
             
             {% endif %}
         
@@ -58,10 +55,8 @@
             {% endif %}
         </div>
     </div>
-    </div>
+  </div>
 
-    
-</div>
 </div>
 <br>
 <br>

@@ -9,9 +9,6 @@
     <li class="nav-item border-start">
       <a class="nav-link ps-2" href="{% url 'my_library' %}">Library</a>
     </li>
-    <li class="nav-item border-start">
-      <a class="nav-link ps-2" href="#">Settings</a>
-    </li>
   </ul>
   <div class="d-flex">
     <a href="{% url 'account_logout' %}" class="btn btn-info rounded-3 p-2 text-light opacity-75 my-3 my-md-0 text-small"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
@@ -48,12 +45,12 @@
             <div class="col-lg-10 offset-lg-1 bg-light shadow-lg mt-0 p-4">
                 <div class="row">
                 <div class="col-md-8">
-                    <p class="small m-0 text-muted fst-italic">Welcome to the profile of...</p>
+                    <p class="small m-0 fst-italic">Welcome to the profile of...</p>
                         
                     <hr class="mt-0">
                     <h1 class="mt-0 mx-3 text-center">{{ profile.name }}</h1>
                     <hr class="mb-0">
-                    <p class="small mt-0 text-end text-muted fst-italic">Joined {{ profile.user.date_joined|date:'M d, Y'}}</p>
+                    <p class="small mt-0 text-end fst-italic">Joined {{ profile.user.date_joined|date:'M d, Y'}}</p>
                     <p class="ms-3"><strong>Registered Books: </strong>{{ profile.user.book_owner.count }} {% if profile.user != request.user %}
                         <a href="{% url 'user_library' profile.user.id %}">[View Library]</a>
                     {% endif %}</p>
@@ -73,7 +70,7 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-7 text-center">
                         <hr>
-                        <h5>My Wishlist</h5>
+                        <h2>My Wishlist</h2>
                         {{ profile.wishlist|safe}}
                         <hr>
                     </div>
@@ -82,13 +79,13 @@
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">
                         {% if profile.goodreads %}
-                        <a href="{{ profile.goodreads }}" target="_blank" class="btn btn-primary rounded-4 text-light me-3"><i class="fa-brands fa-goodreads fa-xl"></i></a>
+                        <a href="{{ profile.goodreads }}" alt="link to user goodreads profile" target="_blank" class="btn btn-primary rounded-4 text-light me-3"><i class="fa-brands fa-goodreads fa-xl"></i></a>
                         {% endif %}
                         {% if profile.storygraph %}
-                        <a href="{{ profile.storygraph }}" target="_blank" class="btn btn-secondary rounded-4 text-light mx-3"><i class="fa-solid fa-book fa-xl"></i></a>
+                        <a href="{{ profile.storygraph }}" alt="link to user storygraph profile" target="_blank" class="btn btn-secondary rounded-4 text-light mx-3"><i class="fa-solid fa-book fa-xl"></i></a>
                         {% endif %}
                         {% if profile.amazon_wl %}
-                        <a href="{{ profile.amazon_wl }}" target="_blank" class="btn btn-primary rounded-4 text-light ms-3"><i class="fa-brands fa-amazon fa-xl"></i></i></a>
+                        <a href="{{ profile.amazon_wl }}" alt="link to user amazon wishlist" target="_blank" class="btn btn-primary rounded-4 text-light ms-3"><i class="fa-brands fa-amazon fa-xl"></i></a>
                         {% endif %}
                     </div>
                 </div>
@@ -99,7 +96,7 @@
                 <div class="col-10 offset-1 mt-2 text-end">
                     {% if request.user == profile.user %}
                         <button class="btn btn-primary text-light text-end p-1 mb-2" type="button" data-bs-toggle="modal" data-bs-target="#editProfile">
-                            <p class="small mb-0">Edit Profile</p>
+                            Edit Profile
                         </button>
                     {% endif %}
                 </div>
@@ -121,7 +118,7 @@
                                 {{ form|crispy }}
                                 <div class="text-end">
 
-                                    <button type="sumbit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </form>
                         </div>
