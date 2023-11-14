@@ -168,7 +168,41 @@ This should be done _after_ setting up a virtual environment on your machine. Yo
 
 ## Manual Feature Testing
 
-
+| Test Object           | Action                                  | Expected Outcome                                                                                                                 | Result |
+| --------------------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| User Registration     | Enter incorrect form data               | No account to be created, user warning about incorrect data                                                                      | PASS   |
+| User Registration     | Enter correct form data                 | Account successfully created, user redirected to profile setup                                                                   | PASS   |
+| User Login            | Enter incorrect form data               | No login, warn user about incorrect details                                                                                      | PASS   |
+| User Login            | Enter correct form data                 | Login and redirect user to User Profile                                                                                          | PASS   |
+| User Logout           | Click Logout button                     | Redirected to "Are you sure you wish to log out?" page                                                                           | PASS   |
+| User Logout           | Logout Confirmation Clicked             | Redirected to index                                                                                                              | PASS   |
+| User Library          | All Books Table                         | User can see all their books in a table (pagination on 20+)                                                                      | PASS   |
+| User Library          | Search function                         | User can search titles, authors and series (whole and partial) and get the limited search result back                            | PASS   |
+| User Library          | Reset Search function                   | If user library is in limited view (due to search), the search button is turned into a Reset button to remove the search filters | PASS   |
+| User Library          | Sort by any table column                | User can sort (alphabetically) per each column in the table                                                                      | PASS   |
+| User Library          | Reset Sorting                           | User can reset the sorting to original by clicking Reset sort in the bottom right of the table                                   | PASS   |
+| User Library          | Pagination                              | User can see pagination if they have above 20 books and pagination works as intended                                             | PASS   |
+| User Library          | Add Book Button                         | Button takes user to the Add Book Form                                                                                           | PASS   |
+| User Library          | Add Book Form                           | User can fill in all relevant book details to add a book to their library                                                        | PASS   |
+| User Library          | Quick Add Button                        | Button takes user to the Quick Add Form                                                                                          | PASS   |
+| User Library          | Quick Add Form                          | User can fill in the important book details to quickly add a book to their library                                               | PASS   |
+| User Library          | Book Details Page                       | Book Details for the selected book are shown properly                                                                            | PASS   |
+| User Library          | Edit Book Button                        | Button takes user to a pre-populated "Add Book Form"                                                                             | PASS   |
+| User Library          | Edit Book Form                          | Form is pre-populated with existing details and if user changes any details, the book details are updated accordingly            | PASS   |
+| User Library          | Delete Book Button                      | Button takes user to a warning/confirmation page                                                                                 | PASS   |
+| User Library          | Delete Book Confirmed                   | If user confirms deletion, the book is removed from user library                                                                 | PASS   |
+| User Library          | Back Button                             | Button takes user back to library view                                                                                           | PASS   |
+| User Profile (own)    | View Profile when profile exists        | User Profile is shown                                                                                                            | PASS   |
+| User Profile (own)    | View Profile when profile doesn't exist | User is prompted to setup Profile                                                                                                | PASS   |
+| User Profile (own)    | Edit Profile Button                     | Visible in the bottom right corner and opens Edit Profile Form                                                                   | PASS   |
+| User Profile (own)    | Edit Profile Form                       | Form to edit profile information, upload avatar and setup User Wishlist                                                          | PASS   |
+| Profile Privacy       | Edit Profile Form Option                | In the top of the edit profile form, the user can choose to set their profile (and subsequent subpages) to private               | PASS   |
+| User Search           | Search for other users                  | User can search for other users by username, either whole or partial. Results are shown on the same page                         | PASS   |
+| User Search           | Search Results                          | User Search Results are shown as the full username as a clickable link to their profile                                          | PASS   |
+| User Profile (others) | View Public Profile                     | User Profile is shown with extra information and link to library                                                                 | PASS   |
+| User Profile (others) | View Private Profile                    | Redirected to a "This profile is private" page                                                                                   | PASS   |
+| User Library (others) | View Public Library                     | Library View just as ones personal library without the add/quick add buttons                                                     | PASS   |
+| User Library (others) | Book Details Page                       | Book Details page just as ones personal books without the edit/delete buttons                                                    | PASS   |
 
 ## Lighthouse validation
 
