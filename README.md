@@ -116,13 +116,22 @@ As this project at core is a modernization of an old project of my stepfathers (
 
 ## Technologies used
 
-- Python Django Framework
-- PostgreSQL (ElephantSQL)
-- Cloudinary
-- HTML
-- CSS/JavaScript (Bootstrap 5)
-- GitHub
-- Heroku
+- **Django** - Used as the project Framework
+- **PostgreSQL** - Used for project database (via ElephantSQL)
+- **Cloudinary** - Used as cloud storage of all static files
+- **HTML** - Used for base structure and layout
+- **CSS/JavaScript** - (Bootstrap 5) - Used for design and responsiveness of the project
+- **Font Awesome** - Used for Icons throughout the site
+- **Git** - Used for version control during the different project stages.
+- **GitHub** - Used to store the code throughout the development
+- **Heroku** - Used to deploy the project
+
+### Supporting Libraries
+`django-crispy-forms` - used for nicer forms throughout the site<br>
+`django-allauth` - used for authorization (account creation and management)<br>
+`django-resized` - used to control image upload sizes<br>
+`django-richtextfield` - used to give users the ability to format their profile bio<br>
+`django-tables2` - used to easily customize the table used for user library<br>
 
 <br>
 
