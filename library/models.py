@@ -49,6 +49,10 @@ class Book(models.Model):
         ordering = ['author', 'series', 'num_in_series', 'title']
 
     def save(self, *args, **kwargs):
+        """
+        Save the book instance, with capitalizing the book type in order to
+        properly pre-populate edit book form
+        """
         self.book_type = self.book_type.capitalize()
         super(Book, self).save(*args, **kwargs)
 

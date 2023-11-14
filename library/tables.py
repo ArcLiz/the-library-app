@@ -3,13 +3,14 @@ from .models import Book
 
 
 class BookTable(tables.Table):
-    """ Table to view all books for one user """
+    """ Custom table to view all books for one user """
     title = tables.LinkColumn(
         'book_detail', args=[tables.A('pk')], verbose_name="Title")
     author = tables.Column(verbose_name="Author")
     genres = tables.Column(empty_values=(), verbose_name="Genres")
 
     def render_genres(self, value):
+        """ View list of all the genres connected to a book """
         return ', '.join([genre.name for genre in value.all()])
 
     book_type = tables.Column(verbose_name="Format")

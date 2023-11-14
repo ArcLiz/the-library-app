@@ -46,4 +46,5 @@ class QuickForm(forms.ModelForm):
 
 
 class CSVUploadForm(forms.Form):
+    """ Form to add a csv with multiple books """
     csv_file = forms.FileField()

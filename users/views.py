@@ -6,8 +6,6 @@ from django.contrib.auth.models import User
 from .models import Profile
 from .forms import ProfileForm, UserSearchForm
 
-# Create your views here.
-
 
 class Profiles(TemplateView):
     """ User Profile View """
@@ -29,14 +27,17 @@ class EditProfile(UpdateView):
     model = Profile
 
     def form_valid(self, form):
+        """Set success url using primary key to redirect to user profile"""
         self.success_url = f'/users/{self.kwargs["pk"]}'
         return super().form_valid(form)
 
     def test_func(self):
+        """Check if the current user has permission to edit the profile."""
         return self.request.user == self.get_object().user
 
 
 def profile_redirect(request):
+    """Redirect the authenticated user to their profile page."""
     if request.user.is_authenticated:
         user_id = request.user.id
         profile_url = reverse('profile', args=[user_id])
@@ -44,9 +45,15 @@ def profile_redirect(request):
 
 
 class UserSearchView(TemplateView):
+    """ View for user search """
     template_name = 'users/search_users.html'
 
     def get_context_data(self, **kwargs):
+        """
+        Adds a UserSearchForm to the context and 
+        handles GET requests for searching users 
+        based on the provided 'username' parameter.
+        """
         context = super().get_context_data(**kwargs)
         form = UserSearchForm()
 

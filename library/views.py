@@ -107,6 +107,7 @@ class MyLibrary(SingleTableView):
 
 
 class UserLibrary(SingleTableView):
+    """ View to see another users library """
     model = Book
     table_class = BookTable
     template_name = 'library/user_library.html'
@@ -114,6 +115,7 @@ class UserLibrary(SingleTableView):
     paginate_by = 20
 
     def get_queryset(self):
+        """ get all books belonging to selected user """
         user_id = self.kwargs['user_id']
         user = get_object_or_404(User, id=user_id)
         queryset = Book.objects.filter(user=user)
@@ -131,6 +133,10 @@ class UserLibrary(SingleTableView):
 
     # search function
     def filter_queryset(self, queryset, query):
+        """ 
+        function to search in user library
+        by using book title, author or series
+        """
         return queryset.filter(
             Q(title__icontains=query) |
             Q(author__icontains=query) |
@@ -138,6 +144,7 @@ class UserLibrary(SingleTableView):
         )
 
     def get_context_data(self, **kwargs):
+        """ set context data for template objects """
         context = super().get_context_data(**kwargs)
         user_id = self.kwargs['user_id']
         user = get_object_or_404(User, id=user_id)

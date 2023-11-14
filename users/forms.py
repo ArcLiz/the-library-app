@@ -35,6 +35,7 @@ class ProfileForm(forms.ModelForm):
 
 
 class UserSearchForm(forms.Form):
+    """ Form to search other users """
     username = forms.CharField(
         max_length=150,
         required=False,
