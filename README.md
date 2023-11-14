@@ -147,7 +147,7 @@ The project was deployed using Heroku. The steps to deploy are as follows:
 You'll now be taken to the Heroku Deployment Tab. In order to use the Code Institute mock terminal template for your deployed project, you'll need to do the following:
 
 4. Navigate to the "Settings" tab
-5. Click "Reveal Config Vars" to add any and all hidden variables and passwords (that most likely reside in your `env.py` or similar)
+5. Click "Reveal Config Vars" to add your variables for `CLOUDINARY_URL`, `DATABASE_URL`, `PORT`(8000) and your `SECRET_KEY`.
 
 ### Heroku Deployment - Deploying a Github Repository<br>
 1. Navigate to the "Deployment" tab
