@@ -17,7 +17,6 @@ The site provides a user-friendly interface that enables users to create, edit, 
 - [Features](#features)
     - [Future Features](#future-features)
 - [Development](#development)
-    - [Structure sketch](#structure-sketch)
     - [Wireframe mockups](#wireframe-mockups)
     - [Database](#database)
     - [Technologies used](#technologies-used)
@@ -89,12 +88,27 @@ These are features that were considered, but not implemented into the MVP versio
 <br>
 
 # Development
+This project was created with all of the methods and theories we've learned so far in the course in mind. In accordance with agile methodology and MoSCoW prioritization I set up a project board which you can find [here](https://github.com/users/ArcLiz/projects/3), that I have been working by to a large extent. 
 
+The board is made up of User Stories that I settled on after brainstorming session, in which I had help from my mother (who is an incredible book collector and the inspiration for the project) and friends from the bookish online communities I am a part of. I read and own many books myself, but I felt I needed the input of other readers and book collectors to create the most usable tool possible.
+
+On the board, you'll see that the user stories are labeled according to the MoSCoW prioritization theories and also broken down into acceptance criteria which I have tried to work by in developing the project and its features and functions. 
+
+I find setting the board up, with user stories and acceptance criteria, to be quite difficult. This due to me personally having issues with breaking what I feel are big concepts down into small sentences and steps. However, I do find that once the steps are properly done and thought out, it is easier to work by them rather than with my "big concept ideas". It is a learning curve with theories and methodologies that I can see the purpose of, even if its difficult for me.
 <br>
 
-## Structure sketch
-
 ## Wireframe mockups
+As this project at core is a modernization of an old project of my stepfathers (listed in the credits section), I did not originally feel the need to create in depth wireframes. I sketched the 3 different "main views" of the site with pen and paper but have made them presentable for the scope of the documentation of this project as shown below.
+
+**Main Library View**
+![Library Wireframe](/static/docs/wireframe-library.png)
+<br>
+**Book Details View**
+![Book Details Wireframe](/static/docs/wireframe-bookdetails.png)
+<br>
+**User Profile View**
+![Profile Wireframe](/static/docs/wireframe-profile.png)
+
 
 ## Database
 
